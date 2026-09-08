@@ -33,6 +33,7 @@ interface SecretLoaderData {
     files: SecretFile[];
 }
 
+/** Display a shared secret and let its recipient decrypt and download attachments. */
 export function SecretPage() {
     const { t } = useTranslation();
     const { id } = useParams<{ id: string }>();
