@@ -20,6 +20,7 @@ import { Modal } from '../components/Modal';
 import { useCopyFeedback } from '../hooks/useCopyFeedback';
 import { api } from '../lib/api';
 import { decrypt, decryptFile, generateEncryptionKey } from '../lib/crypto';
+import { getOriginalFilename } from '../utils/filename';
 
 interface SecretFile {
     id: string;
@@ -146,7 +147,7 @@ export function SecretPage() {
         const blob = new Blob([decryptedFile]);
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = file.filename.split('-').slice(1).join('-');
+        link.download = getOriginalFilename(file);
         link.click();
         URL.revokeObjectURL(link.href);
     };
@@ -341,7 +342,7 @@ export function SecretPage() {
                                                 <FileIcon className="w-4 h-4" />
                                             </div>
                                             <span className="text-sm text-gray-700 dark:text-slate-300">
-                                                {file.filename.split('-').slice(1).join('-')}
+                                                {getOriginalFilename(file)}
                                             </span>
                                         </div>
                                         <button
